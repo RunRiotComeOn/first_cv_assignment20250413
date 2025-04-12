@@ -58,7 +58,7 @@ pip install cupy-cuda11x pandas matplotlib tqdm
 
 1. **克隆代码仓库**：
    ```bash
-   git clone https://github.com/your-username/your-repo.git
+   git clone https://github.com/RunRiotComeOn/first_cv_assignment20250413.git
    cd your-repo
    ```
 
