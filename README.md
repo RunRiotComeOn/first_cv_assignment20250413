@@ -71,12 +71,12 @@ pip install cupy-cuda12x pandas matplotlib tqdm
 3. **运行训练**：
    执行以下命令，替换路径为实际路径：
    ```bash
-   ./demo.sh /path/to/cifar-10/cifar-10-batches-py /path/to/output /path/to/models
+   ./demo.sh /path/to/cifar-10/cifar-10-batches-py/ /path/to/output/ /path/to/models/
    ```
 
    - 示例：
      ```bash
-     ./demo.sh ./data/cifar-10/cifar-10-batches-py ./output ./models
+     ./demo.sh ./data/cifar-10/cifar-10-batches-py/ ./output/ ./models/
      ```
    - 脚本会自动创建 `output_dir` 和 `model_dir`（如果不存在），并运行超参数搜索。
    - 超参数搜索包括：
@@ -108,7 +108,7 @@ from test import test
 from train import load_cifar10_data
 
 # 加载数据
-data_dir = "/path/to/cifar-10/cifar-10-batches-py"
+data_dir = "/path/to/cifar-10/cifar-10-batches-py/"
 _, _, _, _, test_data, test_labels = load_cifar10_data(data_dir)
 
 # 初始化模型
