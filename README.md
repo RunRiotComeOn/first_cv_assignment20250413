@@ -26,7 +26,7 @@
 
 安装依赖的示例命令：
 ```bash
-pip install cupy-cuda11x pandas matplotlib tqdm
+pip install cupy-cuda12x pandas matplotlib tqdm
 ```
 
 ## 数据准备
@@ -35,15 +35,15 @@ pip install cupy-cuda11x pandas matplotlib tqdm
    - 官方网站：[CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html)
    - 或使用脚本自动下载（需安装 `wget` 和 `tar`）：
      ```bash
-     mkdir -p ./data/cifar-10
-     cd ./data/cifar-10
+     mkdir -p ./data
+     cd ./data
      wget https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
      tar -xzvf cifar-10-python.tar.gz
      cd ../..
      ```
    - 解压后的目录结构应包含 `cifar-10-batches-py/`，内有 `data_batch_1` 到 `data_batch_5` 和 `test_batch`。
 
-2. 确保数据集路径正确，例如 `/path/to/cifar-10/cifar-10-batches-py`。
+2. 确保数据集路径正确，例如 `/path/to/cifar-10-batches-py`。
 
 ## 使用说明
 
@@ -142,6 +142,49 @@ print(f"Test Accuracy: {test_acc:.4f}")
 - 由于模型权重文件较大，建议下载后放置在 `model_dir` 中（例如 `./models`），并确保路径与 `hyperparameter_search.py` 或自定义测试脚本一致。
 - 最佳模型权重为 `model_dropout_0.5.npz`（假设 Dropout 率 0.5 表现最佳，具体请参考训练输出）。
 
+### 4. 示例输出 `example.ipynb`
+
+示例输出有以下功能：
+
+- **数据加载**：从CIFAR-10数据集中加载图像和标签。
+- **模型加载**：加载预训练的卷积神经网络模型权重。
+- **单图像分析**：
+   - 预测图像类别
+   - 可视化特征图
+   - 显示类别概率分布
+- **特征可视化**：可视化卷积层和池化层的特征图。
+- **类别概率分布**：显示模型对每个类别的预测概率。
+
+代码结构如下介绍：
+1. **`load_cifar10_batch(file)`**  
+   - 功能：从CIFAR-10数据文件中加载图像和标签。
+   - 输入：数据文件路径。
+   - 输出：图像数据（归一化到[0, 1]）和标签。
+
+2. **`visualize_features(features, layer_name)`**  
+   - 功能：可视化指定层的所有特征图。
+   - 输入：
+     - `features`：特征图（CuPy数组，形状为`(n, c, h, w)`）。
+     - `layer_name`：层名称（如`'conv1'`）。
+   - 输出：特征图的可视化图像。
+
+3. **`analyze_single_image(model, image, true_label, model_file)`**  
+   - 功能：对单个图像进行分析，包括预测类别、显示概率分布和可视化特征图。
+   - 输入：
+     - `model`：卷积神经网络模型。
+     - `image`：输入图像。
+     - `true_label`：图像的真实标签。
+     - `model_file`：模型权重文件路径。
+   - 输出：
+     - 输入图像
+     - 预测类别
+     - 特征图可视化
+     - 类别概率分布
+
+4. **`main()`**  
+   - 功能：主函数，加载数据和模型，调用分析函数。
+
+
 
 ## 常见问题
 
@@ -149,7 +192,7 @@ print(f"Test Accuracy: {test_acc:.4f}")
    - A: 确保 `data_dir` 指向正确的 CIFAR-10 目录，包含 `data_batch_1` 等文件。检查路径是否拼写正确。
 
 2. **Q: CuPy 报错“CUDA 环境不兼容”？**
-   - A: 确认安装的 CuPy 版本与你的 CUDA 版本匹配。例如，CUDA 11.2 使用 `pip install cupy-cuda112`。
+   - A: 确认安装的 CuPy 版本与你的 CUDA 版本匹配。例如，CUDA 11.2 则使用 `pip install cupy-cuda112`。
 
 3. **Q: 模型权重文件无法加载？**
    - A: 确保 `.npz` 文件路径正确，且文件未损坏。尝试重新下载或检查文件完整性。
