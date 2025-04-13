@@ -140,7 +140,7 @@ print(f"Test Accuracy: {test_acc:.4f}")
 
 **说明**：
 - 由于模型权重文件较大，建议下载后放置在 `model_dir` 中（例如 `./models`），并确保路径与 `hyperparameter_search.py` 或自定义测试脚本一致。
-- 最佳模型权重为 `model_dropout_0.5.npz`（假设 Dropout 率 0.5 表现最佳，具体请参考训练输出）。
+- 最佳模型权重为 `model_dropout_0.3.npz`（假设 Dropout 率 0.5 表现最佳，具体请参考训练输出）。
 
 ### 4. 示例输出 `example.ipynb`
 
